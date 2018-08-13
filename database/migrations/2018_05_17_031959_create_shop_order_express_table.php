@@ -23,9 +23,9 @@ class CreateShopOrderExpressTable extends Migration {
 			$table->string('traces', 2000)->default('')->comment('物流跟踪信息');
 			$table->tinyInteger('is_finish')->default(0);
 			$table->integer('request_count')->nullable()->default(0)->comment('总查询次数');
-			$table->timestamp('request_time')->nullable()->default(null)->comment('最近一次向第三方查询物流信息时间');
-			$table->timestamp('add_time')->default(null)->comment('添加时间');
-			$table->timestamp('update_time')->default(null)->comment('更新时间');
+			$table->timestamp('request_time')->nullable()->default('2018-01-01 00:00:00')->comment('最近一次向第三方查询物流信息时间');
+			$table->timestamp('add_time')->default('2018-01-01 00:00:00')->comment('添加时间');
+			$table->timestamp('update_time')->default('2018-01-01 00:00:00')->comment('更新时间');
 		});
 	}
 

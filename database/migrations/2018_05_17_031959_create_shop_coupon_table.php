@@ -20,10 +20,10 @@ class CreateShopCouponTable extends Migration {
 			$table->tinyInteger('send_type')->default(0)->comment('优惠券发放类型');
 			$table->decimal('min_amount', 10)->unsigned()->default(0.00)->comment('优惠使用最小金额');
 			$table->decimal('max_amount', 10)->unsigned()->default(0.00)->comment('优惠使用最大金额');
-			$table->timestamp('send_start_date')->default(null)->comment('优惠券发放开始时间');
-			$table->timestamp('send_end_date')->default(null)->comment('优惠券发放截止时间');
-			$table->timestamp('use_start_date')->default(null)->comment('使用开始时间');
-			$table->timestamp('use_end_date')->default(null)->comment('使用截止时间');
+			$table->timestamp('send_start_date')->default('2018-01-01 00:00:00')->comment('优惠券发放开始时间');
+			$table->timestamp('send_end_date')->default('2018-01-01 00:00:00')->comment('优惠券发放截止时间');
+			$table->timestamp('use_start_date')->default('2018-01-01 00:00:00')->comment('使用开始时间');
+			$table->timestamp('use_end_date')->default('2018-01-01 00:00:00')->comment('使用截止时间');
 			$table->decimal('min_goods_amount', 10)->unsigned()->default(0.00)->comment('优惠使用商品的最小金额');
 			$table->timestamps();
 		});

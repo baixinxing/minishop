@@ -18,8 +18,8 @@ class CreateShopUserCouponTable extends Migration {
 			$table->integer('coupon_id')->default(0)->comment('优惠券id');
 			$table->string('coupon_number', 20)->default('')->comment('优惠劵数量');
 			$table->integer('uid')->unsigned()->default(0)->index('uid')->comment('用户uid');
-			$table->timestamp('used_time')->default(null)->comment('最后使用时间');
-			$table->timestamp('reward_time')->default(null)->comment('优惠领取时间');
+			$table->timestamp('used_time')->default('2018-01-01 00:00:00')->comment('最后使用时间');
+			$table->timestamp('reward_time')->default('2018-01-01 00:00:00')->comment('优惠领取时间');
 			$table->tinyInteger('use_status')->unsigned()->default(10)->comment('状态 10 可以使用 20已使用');
 			$table->integer('order_id')->unsigned()->default(0)->comment('订单id');
 			$table->timestamps();
