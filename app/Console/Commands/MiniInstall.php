@@ -11,7 +11,7 @@ class MiniInstall extends Command
      *
      * @var string
      */
-    protected $signature = 'Mini:install';
+    protected $signature = 'mini:install';
 
     /**
      * The console command description.
