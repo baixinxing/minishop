@@ -1,8 +1,5 @@
 <?php
-/**
- * sqc
- * xiaoT科技
- */
+
 namespace App\Logic;
 
 use Illuminate\Http\Request;

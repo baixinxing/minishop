@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 class UploadController extends Controller
 {
     const MAX_UPLOAD_NUM = 25;
-    const UPLOAD_PATH = 'XiaoT';
+    const UPLOAD_PATH = 'Mini';
 
     // 待优化
     function uploadImg(Request $request)

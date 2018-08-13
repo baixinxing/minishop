@@ -16,8 +16,8 @@ App({
   
   globalData: {
     userInfo: {
-      nickname: 'Hi,游客',
-      username: '点击去登录',
+      nickname: '游客',
+      username: '去登录',
       avatar: 'http://mp.fengyuexingzi.top/images/default_head.png'
     },
     token: '',

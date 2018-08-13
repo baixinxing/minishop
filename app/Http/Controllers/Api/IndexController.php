@@ -11,7 +11,6 @@ use App\Http\Resources\ShopTopic as ShopTopicResource;
 class IndexController extends ApiController
 {
     /**
-     * xiaoT技术首页信息
      * @return mixed
      */
     public function index()

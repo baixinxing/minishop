@@ -16,8 +16,8 @@ Page({
   },
   onShareAppMessage: function () {
     return {
-      title: 'XiaoTShop',
-      desc: 'XiaoT科技商城',
+      title: 'MiniShop',
+      desc: 'MiniShop',
       path: '/pages/index/index'
     }
   },

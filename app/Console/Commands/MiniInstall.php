@@ -4,21 +4,21 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class XiaoTInstall extends Command
+class MiniInstall extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'XiaoT:install';
+    protected $signature = 'Mini:install';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Install XiaoT Shop';
+    protected $description = 'Install MiniShop';
 
     /**
      * Create a new command instance.
