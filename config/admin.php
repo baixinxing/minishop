@@ -42,7 +42,7 @@ return [
     /*
      * Use `https`.
      */
-    'secure' => true,
+    'secure' => env('ADMIN_SECRET', true),
 
     /*
      * Laravel-admin auth setting.
@@ -68,7 +68,7 @@ return [
      */
     'upload' => [
 
-        'disk' => 'oss',
+        'disk' => 'admin',
 
         'directory' => [
             'image' => 'images',
