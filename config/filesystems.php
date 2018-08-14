@@ -13,7 +13,11 @@ return [
     |
     */
 
+<<<<<<< HEAD
     'default' => env('FILESYSTEM_DRIVER', 'local'),
+=======
+    'default' => env('FILESYSTEM_DRIVER', 'oss'),
+>>>>>>> 6c3143ac16e1c248e2d2a034db764146d060894a
 
     /*
     |--------------------------------------------------------------------------
