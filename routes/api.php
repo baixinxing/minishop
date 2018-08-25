@@ -108,6 +108,6 @@ Route::namespace('Api')->group(function () {
         return $info;
     });
 
-    // hook
+    // git_hook
 });
 
