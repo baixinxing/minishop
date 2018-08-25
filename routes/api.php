@@ -100,5 +100,11 @@ Route::namespace('Api')->group(function () {
     });
 
     Route::any('/login','AuthenticateController@auto_login')->name('login');
+
+    Route::any('mini',function(Request $request){
+        $mini = EasyWeChat::miniProgram();
+        $info = $mini->auth->session($request->input('code'));
+        return $info;
+    });
 });
 
