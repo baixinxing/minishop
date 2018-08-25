@@ -117,6 +117,7 @@ function login() {
       success: function (res) {
         if (res.code) {
           //登录远程服务器
+          console.log(res.code);
           resolve(res);
         } else {
           reject(res);
@@ -130,6 +131,7 @@ function login() {
 }
 
 function getUserInfo() {
+  console('abc');
   return new Promise(function (resolve, reject) {
     wx.getUserInfo({
       withCredentials: true,

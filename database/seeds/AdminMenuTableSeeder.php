@@ -99,7 +99,7 @@ class AdminMenuTableSeeder extends Seeder
                 'id' => 8,
                 'parent_id' => 0,
                 'order' => 8,
-                'title' => '定制科技项目商品板块',
+                'title' => '项目定制',
                 'icon' => 'fa-diamond',
                 'uri' => NULL,
                 'created_at' => '2018-05-07 08:18:24',
