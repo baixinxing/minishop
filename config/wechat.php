@@ -98,11 +98,6 @@ return [
             'secret' => env('WECHAT_MINI_PROGRAM_SECRET', ''),
             'token' => env('WECHAT_MINI_PROGRAM_TOKEN', ''),
             'aes_key' => env('WECHAT_MINI_PROGRAM_AES_KEY', ''),
-            'response_type' => 'array',
-            'log' => [
-                'level' => 'debug',
-                'file' => storage_path('logs/mini_wechat.log'),
-            ],
         ],
     ],
 
