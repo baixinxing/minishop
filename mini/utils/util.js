@@ -131,7 +131,7 @@ function login() {
 }
 
 function getUserInfo() {
-  console('abc');
+  console.log('abc');
   return new Promise(function (resolve, reject) {
     wx.getUserInfo({
       withCredentials: true,
