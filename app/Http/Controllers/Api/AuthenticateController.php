@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Auth;
-use Laravel\Passport\Client;
-use Socialite;
-use GuzzleHttp\Client as HttpClient;
-use App\User;
 use Illuminate\Http\Request;
+use Socialite;
 use Validator;
-use EasyWeChat\Factory;
+use EasyWeChat;
 
 class AuthenticateController extends ApiController
 {
@@ -32,14 +29,15 @@ class AuthenticateController extends ApiController
 
     public function easyWechatGetSession($code)
     {
-        $config = config('wechat.mini_program.default');
-        $app = Factory::miniProgram($config);
-        return $app->auth->session($code);
+       // $config = config('wechat.mini_program.default');
+       // $app = Facade::miniProgram($config);
+      //  return $app->auth->session($code);
     }
 
     /**
      * 处理小程序的自动登陆和注册
-     * @param $oauth
+     * @param Request $request
+     * @return mixed
      */
     public function auto_login(Request $request)
     {
@@ -47,6 +45,12 @@ class AuthenticateController extends ApiController
         if ($request->code) {
             $wx_info = $this->easyWechatGetSession($request->code);
         }
+
+
+
+        $mini = EasyWeChat::miniProgram();
+
+        return $wx_info;
 
         if (!$request->openid && empty($wx_info['openid'])) {
             return $this->failed('用户openid没有获取到', 401);

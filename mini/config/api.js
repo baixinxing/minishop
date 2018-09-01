@@ -1,4 +1,5 @@
-const ApiRootUrl ='https://mp.fengyuexingzi.top/api/';
+//const ApiRootUrl ='https://mp.fengyuexingzi.top/api/';
+const ApiRootUrl = 'http://127.0.0.1:8000/api/';
 
 module.exports = {
   IndexUrl: ApiRootUrl + 'index', //首页数据接口 --

@@ -18,13 +18,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::namespace('Api')->group(function () {
+
+    // 用户登录
+    Route::any('/login','AuthenticateController@auto_login')->name('login');
+
     // 在 "App\Http\Controllers\Api" 命名空间下的控制器
     Route::any('/order-notify','PaymentController@notify');
     // 项目估价json
     Route::any('/project_json/types', 'ProjectJsonController@getProjectTypes');
     Route::any('/project_json/func-types', 'ProjectJsonController@getProjectFuncTypesByTypeId');
     Route::any('/project_json/models', 'ProjectJsonController@getProjectModelsByFunctypeId');
-
 
     // 需要用户信息的
     Route::middleware('auth:api')->group(function () {
@@ -98,8 +101,6 @@ Route::namespace('Api')->group(function () {
         // 用户足迹相关
         Route::get('/footprint-list','ShopFootprintController@getList');// 获取足迹列表
     });
-
-    Route::any('/login','AuthenticateController@auto_login')->name('login');
 
     // 测试小程序登录
     Route::any('mini',function(Request $request){

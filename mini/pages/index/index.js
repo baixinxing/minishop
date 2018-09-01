@@ -39,7 +39,7 @@ Page({
     });
   },
   onLoad: function (options) {
-    this.getIndexData();
+    //this.getIndexData();
   },
   onReady: function () {
     // 页面渲染完成

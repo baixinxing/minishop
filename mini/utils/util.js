@@ -112,6 +112,7 @@ function checkSession() {
  * 调用微信登录
  */
 function login() {
+  console.log('util login');
   return new Promise(function (resolve, reject) {
     wx.login({
       success: function (res) {
