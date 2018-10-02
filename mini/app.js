@@ -5,6 +5,56 @@ var user = require('./services/user.js');
 App({
   onLaunch: function () {
 
+    wx.navigateTo({
+      url: '/pages/welcome/welcome',
+    })
+
+    // wx.login({
+    //   success: res =>{
+    //     console.log(res);
+    //   },
+    //   fail: error => {
+    //     console.log(error);
+    //   }
+    // })
+
+    // wx.getSetting({
+    //   success: res => {
+    //     if(res.authSetting['scope.userInfo']){
+    //       console.log("已授权");
+    //       wx.getUserInfo({
+    //         success: res => {
+    //           console.log(res);
+    //         }
+    //       })
+    //     }else{
+    //       console.log("未授权");
+    //     }
+    //   }
+    // })
+
+    // wx.showModal({
+
+    //   title: '提示',
+
+    //   content: '这是一个模态弹窗',
+
+    //   success: function (res) {
+
+    //     if (res.confirm) {//这里是点击了确定以后
+
+    //       console.log('用户点击确定')
+
+    //     } else {//这里是点击了取消以后
+
+    //       console.log('用户点击取消')
+
+    //     }
+
+    //   }
+
+    // })
+
   //  wx.getLocation({
   //    success: function(res) {
   //      console.log(res);
@@ -53,28 +103,28 @@ App({
     //   }
     // });
 
-    wx.login({
-      success: function (res) {
-        console.log('登录成功' + res);
-        if (res.code) {
-          //发起网络请求
-          wx.request({
-            url: 'http://127.0.0.1:8000/api/login',
-            data: {
-              code: res.code
-            },
-            success: res => {
-              console.log(res);
-            },
-            fail: error => {
-              console.log(error)
-            }
-          })
-        } else {
-          console.log('登录失败！' + res.errMsg)
-        }
-      }
-    });
+    // wx.login({
+    //   success: function (res) {
+    //     console.log('登录成功' + res);
+    //     if (res.code) {
+    //       //发起网络请求
+    //       wx.request({
+    //         url: 'http://127.0.0.1:8000/api/login',
+    //         data: {
+    //           code: res.code
+    //         },
+    //         success: res => {
+    //           console.log(res);
+    //         },
+    //         fail: error => {
+    //           console.log(error)
+    //         }
+    //       })
+    //     } else {
+    //       console.log('登录失败！' + res.errMsg)
+    //     }
+    //   }
+    // });
 
     
     // //获取用户的登录信息
@@ -88,12 +138,37 @@ App({
 
   },
   
+  // globalData: {
+  //   userInfo: {
+  //     nickname: '游客',
+  //     username: '去登录',
+  //     avatar: 'http://mp.fengyuexingzi.top/images/default_head.png'
+  //   },
+  //   token: '',
+  // }
+
+  getUserInfo: function (cb) {
+    var that = this
+    if (this.globalData.userInfo) {
+      typeof cb == "function" && cb(this.globalData.userInfo)
+    } else {
+      //调用登录接口
+      wx.login({
+        success: function () {
+          wx.getUserInfo({
+            success: function (res) {
+              console.log(res);
+              wx.setStorageSync('isFirst', res.userInfo);
+              that.globalData.userInfo = res.userInfo
+              typeof cb == "function" && cb(that.globalData.userInfo)
+            }
+          })
+        }
+      })
+    }
+  },
+  
   globalData: {
-    userInfo: {
-      nickname: '游客',
-      username: '去登录',
-      avatar: 'http://mp.fengyuexingzi.top/images/default_head.png'
-    },
-    token: '',
+    userInfo: null
   }
 })

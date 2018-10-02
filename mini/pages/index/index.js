@@ -12,7 +12,8 @@ Page({
     brands: [],
     floorGoods: [],
     carouselInfo: [],
-    specialList: []
+    specialList: [],
+    userInfo: {}
   },
   onShareAppMessage: function () {
     return {
@@ -39,7 +40,16 @@ Page({
     });
   },
   onLoad: function (options) {
+
     //this.getIndexData();
+    var that = this
+    app.getUserInfo(function (userInfo) {
+      //更新数据
+      that.setData({
+        userInfo: userInfo
+      })
+    })
+    
   },
   onReady: function () {
     // 页面渲染完成

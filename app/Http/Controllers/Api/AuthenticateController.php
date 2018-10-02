@@ -6,9 +6,9 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Overtrue\LaravelWeChat\Facade as EasyWeChat;
 use Socialite;
 use Validator;
-use EasyWeChat;
 
 class AuthenticateController extends ApiController
 {
@@ -27,31 +27,23 @@ class AuthenticateController extends ApiController
         return 'openid';
     }
 
-
     /**
      * 处理小程序的自动登陆和注册
      * @param Request $request
      * @return mixed
+     * @throws \EasyWeChat\Kernel\Exceptions\InvalidConfigException
      */
     public function auto_login(Request $request)
     {
-        $mini = EasyWeChat::miniProgram();
         // 获取openid
-        if ($request->code) {
-            $wx_info = $mini->auth->session($request->code);
-        }
-
-        if (!$request->openid && empty($wx_info['openid'])) {
+        $mini = EasyWeChat::miniProgram();
+        $miniInfo = $mini->auth->session($request->get('code'));
+        // 判断用户是否合法
+        if (!$request->get('openid') && empty($miniInfo['openid'])) {
             return $this->failed('用户openid没有获取到', 401);
         }
-
-        $openid = empty($wx_info['openid'])?$request->openid:$wx_info['openid'];
-
-
+        $openid = empty($miniInfo['openid']) ? $request->get('openid') : $miniInfo['openid'];
         $userInfo = User::where('openid', $openid)->first();
-
-        return $userInfo;
-
         if ($userInfo && $userInfo->toArray()) {
             //执行登录
             $userInfo->login_ip = $this->getClientIP();
@@ -59,10 +51,10 @@ class AuthenticateController extends ApiController
             $userInfo->save();
             // 直接创建token
             $token = $userInfo->createToken($openid)->accessToken;
-            return $this->success(compact('token','userInfo'));
+            return $this->success(compact('token', 'userInfo'));
         } else {
             //执行注册
-            return $this->register($request,$openid);
+            return $this->register($request, $openid);
         }
     }
 
@@ -70,17 +62,18 @@ class AuthenticateController extends ApiController
      * 用户注册
     * @param Request $request
     */
-    public function register($request,$openid)
+    public function register($request, $openid)
     {
         //  进行基本验证
-        $user_info = \GuzzleHttp\json_decode($request->input('rawData'),true);
+        return $request->input('rawData');
+        $user_info = \GuzzleHttp\json_decode($request->input('rawData'), true);
         //注册信息  字段名=》get到的值
         $newUser = [
             'openid' => $openid, //openid
             'nickname' => $user_info['nickName'],// 昵称
-            'email' => time().'sqc157400661@163.com',// 邮箱
+            'email' => time() . 'sqc157400661@163.com',// 邮箱
             'name' => $user_info['nickName'],// 昵称
-            'avatar' =>$user_info['avatarUrl'], //头像
+            'avatar' => $user_info['avatarUrl'], //头像
             'unionid' => '', // unionid (可空)
             'state' => 1,
             'role' => 0,
@@ -92,7 +85,7 @@ class AuthenticateController extends ApiController
         $userInfo = User::create($newUser);
         // 直接创建token
         $token = $userInfo->createToken($openid)->accessToken;
-        return $this->success(compact('token','userInfo'));
+        return $this->success(compact('token', 'userInfo'));
     }
 
     protected function sendFailedLoginResponse(Request $request)

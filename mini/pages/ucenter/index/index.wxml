@@ -2,7 +2,7 @@
   <view class="profile-info" bindtap="goLogin">
     <image class="avatar" src="{{userInfo.avatar}}"></image>
     <view class="info">
-      <text class="name">{{userInfo.nickname}}</text>
+      <text class="name">{{userInfo.nickname}}11</text>
       <!-- <text class="level">{{userInfo.username}}</text> -->
     </view>
   </view>

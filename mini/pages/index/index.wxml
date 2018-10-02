@@ -1,6 +1,7 @@
 
 <!--index.wxml-->
 <view class="container">
+ <button id='abc' open-type="getUserInfo">登录</button>
   <swiper class="banner" indicator-dots="true" autoplay="true" interval="3000" duration="1000">
     <swiper-item wx:for="{{carouselInfo}}" wx:key="{{item.id}}">
       <navigator url="{{item.businessId}}">
