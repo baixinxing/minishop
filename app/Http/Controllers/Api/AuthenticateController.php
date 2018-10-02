@@ -27,12 +27,6 @@ class AuthenticateController extends ApiController
         return 'openid';
     }
 
-    public function easyWechatGetSession($code)
-    {
-       // $config = config('wechat.mini_program.default');
-       // $app = Facade::miniProgram($config);
-      //  return $app->auth->session($code);
-    }
 
     /**
      * 处理小程序的自动登陆和注册
@@ -41,22 +35,23 @@ class AuthenticateController extends ApiController
      */
     public function auto_login(Request $request)
     {
+        $mini = EasyWeChat::miniProgram();
         // 获取openid
         if ($request->code) {
-            $wx_info = $this->easyWechatGetSession($request->code);
+            $wx_info = $mini->auth->session($request->code);
         }
-
-
-
-        $mini = EasyWeChat::miniProgram();
-
-        return $wx_info;
 
         if (!$request->openid && empty($wx_info['openid'])) {
             return $this->failed('用户openid没有获取到', 401);
         }
+
         $openid = empty($wx_info['openid'])?$request->openid:$wx_info['openid'];
+
+
         $userInfo = User::where('openid', $openid)->first();
+
+        return $userInfo;
+
         if ($userInfo && $userInfo->toArray()) {
             //执行登录
             $userInfo->login_ip = $this->getClientIP();
