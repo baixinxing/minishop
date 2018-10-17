@@ -7,37 +7,53 @@ Page({
   data: {
     userInfo: {}
   },
-  onLoad: function (options) {
-    // 页面初始化 options为页面跳转所带来的参数
-    console.log(app.globalData)
+  onLoad: function(options) {
+    var that = this
+    wx.getSetting({
+      success: res => {
+        if (res.authSetting['scope.userInfo']) {
+          console.log('已授权');
+          wx.getUserInfo({
+            withCredentials: true,
+            lang: '',
+            success: function(res) {
+              that.setData({
+                userInfo: res.userInfo
+              })
+            },
+
+          })
+        }
+      }
+    })
   },
-  onReady: function () {
+  onReady: function() {
 
   },
-  onShow: function () {
+  onShow: function() {
 
-    let userInfo = wx.getStorageSync('userInfo');
-    let token = wx.getStorageSync('token');
+    // let userInfo = wx.getStorageSync('userInfo');
+    // let token = wx.getStorageSync('token');
 
-    // 页面显示
-    if (userInfo && token) {
-      app.globalData.userInfo = userInfo;
-      app.globalData.token = token;
-    }
+    // // 页面显示
+    // if (userInfo && token) {
+    //   app.globalData.userInfo = userInfo;
+    //   app.globalData.token = token;
+    // }
 
-    this.setData({
-      userInfo: app.globalData.userInfo,
-    });
+    // this.setData({
+    //   userInfo: app.globalData.userInfo,
+    // });
 
   },
-  onHide: function () {
+  onHide: function() {
     // 页面隐藏
 
   },
-  onUnload: function () {
+  onUnload: function() {
     // 页面关闭
   },
-  goLogin(){
+  goLogin() {
     user.loginByWeixin().then(res => {
       this.setData({
         userInfo: res.data.userInfo
@@ -48,12 +64,12 @@ Page({
       console.log(err)
     });
   },
-  exitLogin: function () {
+  exitLogin: function() {
     wx.showModal({
       title: '',
       confirmColor: '#b4282d',
       content: '退出登录？',
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           wx.removeStorageSync('token');
           wx.removeStorageSync('userInfo');

@@ -5,33 +5,14 @@ var user = require('./services/user.js');
 App({
   onLaunch: function () {
 
-    wx.navigateTo({
-      url: '/pages/welcome/welcome',
+    wx.chooseLocation({
+      success: data => {
+        console.log(data)
+      }
     })
 
-    // wx.login({
-    //   success: res =>{
-    //     console.log(res);
-    //   },
-    //   fail: error => {
-    //     console.log(error);
-    //   }
-    // })
 
-    // wx.getSetting({
-    //   success: res => {
-    //     if(res.authSetting['scope.userInfo']){
-    //       console.log("已授权");
-    //       wx.getUserInfo({
-    //         success: res => {
-    //           console.log(res);
-    //         }
-    //       })
-    //     }else{
-    //       console.log("未授权");
-    //     }
-    //   }
-    // })
+
 
     // wx.showModal({
 
@@ -136,7 +117,7 @@ App({
       
     // });
 
-  },
+  }
   
   // globalData: {
   //   userInfo: {
@@ -147,28 +128,25 @@ App({
   //   token: '',
   // }
 
-  getUserInfo: function (cb) {
-    var that = this
-    if (this.globalData.userInfo) {
-      typeof cb == "function" && cb(this.globalData.userInfo)
-    } else {
-      //调用登录接口
-      wx.login({
-        success: function () {
-          wx.getUserInfo({
-            success: function (res) {
-              console.log(res);
-              wx.setStorageSync('isFirst', res.userInfo);
-              that.globalData.userInfo = res.userInfo
-              typeof cb == "function" && cb(that.globalData.userInfo)
-            }
-          })
-        }
-      })
-    }
-  },
-  
-  globalData: {
-    userInfo: null
-  }
+  // getUserInfo: function (cb) {
+  //   var that = this
+  //   if (this.globalData.userInfo) {
+  //     typeof cb == "function" && cb(this.globalData.userInfo)
+  //   } else {
+  //     //调用登录接口
+  //     wx.login({
+  //       success: function () {
+  //         wx.getUserInfo({
+  //           success: function (res) {
+  //             console.log(res);
+  //             wx.setStorageSync('isFirst', res.userInfo);
+  //             that.globalData.userInfo = res.userInfo
+  //             typeof cb == "function" && cb(that.globalData.userInfo)
+  //           }
+  //         })
+  //       }
+  //     })
+  //   }
+  // },
+
 })

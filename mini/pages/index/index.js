@@ -43,12 +43,12 @@ Page({
 
     //this.getIndexData();
     var that = this
-    app.getUserInfo(function (userInfo) {
-      //更新数据
-      that.setData({
-        userInfo: userInfo
-      })
-    })
+    // app.getUserInfo(function (userInfo) {
+    //   //更新数据
+    //   that.setData({
+    //     userInfo: userInfo
+    //   })
+    // })
     
   },
   onReady: function () {
